@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es5",
+    "noImplicitAny": false,
+    "outDir": "lib",
+    "lib": [
+      "es6"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "rootDirs": [
+    "."
+  ]
+}
