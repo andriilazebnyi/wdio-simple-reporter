@@ -28,11 +28,13 @@
     "url": "https://github.com/andriilazebnyi/wdio-simple-reporter/issues"
   },
   "homepage": "https://github.com/andriilazebnyi/wdio-simple-reporter#readme",
-  "dependencies": {
+  "devDependencies": {
     "@types/mkdirp": "^0.3.29",
     "@types/node": "^7.0.11",
-    "mkdirp": "^0.5.1",
     "typescript": "^2.2.1"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1"
   },
   "contributors": [
     "Andrii Lazebnyi <lazebniy.a@gmail.com>"
