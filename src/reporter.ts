@@ -145,11 +145,24 @@ type ConfigOptions = {
 }
 
 type BaseReporter = {
-  readonly stats: { [key: string]: ReporterStats }
+  readonly stats: ReporterStats
 }
 
 type ReporterStats = {
-  runners: { [key: string]: SpecStats }
+  runners: { [key: string]: RunnerStats }
+}
+
+type RunnerStats = {
+  type: string
+  start: Date
+  _duration: number
+  uid: string
+  cid: string
+  capabilities: Capabilities
+  sanitizedCapabilities: string
+  config: Config
+  specs: { [key: string]: SpecStats }
+  sessionID: string
 }
 
 /**
@@ -159,6 +172,8 @@ type ReporterStats = {
  * @api public
  */
 export class SimpleReporter extends events.EventEmitter {
+  public static reporterName = 'wdio-simple-reporter' // default reporter name
+
   private resultsDir = '../reports' // default results dir
   private resultsFile = 'report.json' // default results file
   private runnerResults: RunnerResult[] = []
@@ -194,7 +209,8 @@ export class SimpleReporter extends events.EventEmitter {
 
     this.on('runner:end', (runner: RunnerEnd) => {
       const cid = runner.cid
-      const suites: SuiteStats[] = this.getAllTestSuites(baseReporterStats.runners[cid])
+      const specHash = runner.specHash
+      const suites: SuiteStats[] = this.getAllTestSuites(baseReporterStats.runners[cid].specs[specHash])
       this.getRunner(cid).suites = suites
     })
 
@@ -242,15 +258,11 @@ export class SimpleReporter extends events.EventEmitter {
     )
   }
 
-  private getAllTestSuites(runner: RunnerEnd): any {
+  private getAllTestSuites(spec: SpecStats) {
     let suites: SuiteStats[] = []
 
-    Object.keys(runner.specs).map(specHash => {
-      const spec: SpecStats = runner.specs[specHash]
-
-      Object.keys(spec.suites)
-        .map(suiteName => suites.push(spec.suites[suiteName]))
-    })
+    Object.keys(spec.suites)
+      .map(suiteName => suites.push(spec.suites[suiteName]))
 
     // remove suites with empty tests property
     return suites.filter(suite => Object.keys(suite.tests).length !== 0)
