@@ -10,7 +10,7 @@ The easiest way is to keep `wdio-simple-reporter` as a devDependency in your `pa
 ```
 {
   "devDependencies": {
-    "wdio-simple-reporter": "~0.1.0"
+    "wdio-simple-reporter": "~0.1.1"
   }
 }
 ```
