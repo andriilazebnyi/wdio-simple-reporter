@@ -30,7 +30,6 @@ Following code shows the default wdio test runner configuration.
 ```
 // wdio.conf.js
 var simpleReporter = require('wdio-simple-reporter').SimpleReporter
-simpleReporter.reporterName = 'wdio-simple-reporter'
 ...
 module.exports = {
   // ...
