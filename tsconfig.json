@@ -2,7 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "es5",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "outDir": "lib",
     "lib": [
       "es6"
